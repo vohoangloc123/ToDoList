@@ -1,24 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_list/constants/colors/colors.dart';
+import 'package:to_do_list/models/todo.dart';
 
 class TodoItem extends StatelessWidget {
-  const TodoItem({super.key});
+  final ToDo todo;
+  const TodoItem({Key?key, required this.todo}):super(key:key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+        margin: EdgeInsets.only(bottom:20),
         child: ListTile(
           onTap: (){},
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),
           ),
           contentPadding:  EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           tileColor: Colors.white,
-          leading: Icon(Icons.check_box, color: tdBlue),
-          title: Text('Check Mail',
-            style: TextStyle(fontSize:16,
+          leading: Icon(todo.isDone? Icons.check_box: Icons.check_box_outline_blank, color: tdBlue),
+          title: Text(
+            todo.todoText!,
+            style: TextStyle(
+              fontSize:16,
               color: tdBlack,
-              decoration: TextDecoration.lineThrough,
+              decoration: todo.isDone? TextDecoration.lineThrough: null,
             ),
           ),
           trailing: Container(
@@ -33,7 +38,9 @@ class TodoItem extends StatelessWidget {
               color: Colors.white,
               iconSize: 18,
               icon: Icon(Icons.delete),
-              onPressed: (){},
+              onPressed: (){
+                print('Clicked on delete icon');
+              },
             ),
           ),
         ));

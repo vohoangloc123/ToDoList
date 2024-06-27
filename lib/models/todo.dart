@@ -18,4 +18,18 @@ class ToDo {
       ToDo(id: '05', todoText: 'Walk the dog', isDone: false),
     ];
   }
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'todoText': todoText,
+      'isDone': isDone,
+    };
+  }
+  factory ToDo.fromJson(Map<String, dynamic> json) {
+    return ToDo(
+      id: json['id'],
+      todoText: json['todoText'],
+      isDone: json['isDone'] ?? false, // Khởi tạo isDone mặc định là false nếu không có giá trị
+    );
+  }
 }

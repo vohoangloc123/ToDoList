@@ -13,14 +13,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<ToDo> todosList = [];
-  List<ToDo> _foundToDo = [];
+  List<ToDo> todosList = []; // lưu trữ tất cả các mục ToDo
+  List<ToDo> _foundToDo = []; // được sử dụng để lưu trữ các mục ToDo được tìm thấy sau khi áp dụng bộ lọc tìm kiếm vào danh sách
   final _todoController = TextEditingController();
+  //Được sử dụng để lấy và điều khiển nội dung nhập liệu từ một TextField trong giao diện người dùng.
+  // Xóa nội dung: Cung cấp phương thức .clear() để xóa nội dung hiện tại của TextField, thường được sử dụng sau khi người dùng đã thêm một mục ToDo mới.
+  // Trích xuất nội dung: Sử dụng .text để lấy nội dung hiện tại của TextField, như trong phương thức _addToDoItem để lấy giá trị ToDo mới và thêm vào todosList.
 
   @override
   void initState() {
     super.initState();
-    _loadTodoList();
+    _loadTodoList(); //load dữ liệu
   }
 
   @override
@@ -48,7 +51,7 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
-                      for (ToDo todo in _foundToDo.reversed)
+                      for (ToDo todo in _foundToDo.reversed) //reversed là một phương thức của lớp Iterable trong Dart, nó trả về một bản sao của danh sách ban đầu với thứ tự các phần tử đảo ngược lại.
                         TodoItem(
                           todo: todo,
                           onToDoChanged: _handleToDoChange,
@@ -81,7 +84,7 @@ class _HomeState extends State<Home> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextField(
-                      controller: _todoController,
+                      controller: _todoController, //Đối tượng _todoController được sử dụng làm điều khiển cho TextField, giúp quản lý và lấy giá trị nhập liệu từ người dùng.
                       decoration: InputDecoration.collapsed(
                         hintText: 'Add a new to do item',
                         border: InputBorder.none,
@@ -97,7 +100,7 @@ class _HomeState extends State<Home> {
                       style: TextStyle(fontSize: 40, color: Colors.white),
                     ),
                     onPressed: () {
-                      _addToDoItem(_todoController.text);
+                      _addToDoItem(_todoController.text); // thêm một mục ToDo mới vào danh sách dựa trên nội dung mà người dùng đã nhập vào từ TextField được quản lý bởi _todoController.
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: tdBlue,
@@ -122,6 +125,7 @@ class _HomeState extends State<Home> {
       todo.isDone = !todo.isDone;
       _saveTodoList(todosList); // Lưu lại khi thay đổi trạng thái
     });
+    // thay đổi trạng thái của một mục ToDo và sau đó lưu danh sách các mục ToDo này vào SharedPreferences.
   }
 
   void _deleteToDoItem(String id) {

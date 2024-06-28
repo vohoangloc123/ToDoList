@@ -14,6 +14,8 @@ class TodoItem extends StatelessWidget {
     return Container(
         margin: EdgeInsets.only(bottom:20),
         child: ListTile(
+          //Thuộc tính onTap xác định hành động khi người dùng nhấn vào ListTile.
+          // Ở đây, hàm onToDoChanged(todo) được gọi, kích hoạt sự thay đổi trạng thái của mục todo.
           onTap: (){
             onToDoChanged(todo);
           },
@@ -30,6 +32,9 @@ class TodoItem extends StatelessWidget {
               decoration: todo.isDone? TextDecoration.lineThrough: null,
             ),
           ),
+          //trailing được đặt ở phía bên phải của ListTile, bao bọc trong một Container.
+          // Hiển thị một IconButton với biểu tượng xóa (Icons.delete).
+          // Nút có màu nền là tdRed và kích hoạt hàm onDeleteItem(todo.id) khi được nhấn, truyền id của mục todo.
           trailing: Container(
             padding: EdgeInsets.all(0),
             height: 35,
